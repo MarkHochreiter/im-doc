@@ -1,0 +1,741 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+/* Nintendo 80s Color Palette */
+:root {
+  --radius: 0.625rem;
+  --nintendo-red: #e60012;
+  --nintendo-blue: #0066cc;
+  --nintendo-yellow: #ffcc00;
+  --nintendo-green: #00aa44;
+  --nintendo-purple: #6633cc;
+  --nintendo-orange: #ff6600;
+  --paper-beige: #f4f1e8;
+  --paper-cream: #faf8f3;
+  --text-dark: #2c1810;
+  --text-medium: #5a4a3a;
+  --border-dark: #8b7355;
+  
+  --background: var(--paper-cream);
+  --foreground: var(--text-dark);
+  --card: var(--paper-beige);
+  --card-foreground: var(--text-dark);
+  --popover: var(--paper-beige);
+  --popover-foreground: var(--text-dark);
+  --primary: var(--nintendo-red);
+  --primary-foreground: white;
+  --secondary: var(--nintendo-blue);
+  --secondary-foreground: white;
+  --muted: #e8e2d4;
+  --muted-foreground: var(--text-medium);
+  --accent: var(--nintendo-yellow);
+  --accent-foreground: var(--text-dark);
+  --destructive: #dc2626;
+  --border: var(--border-dark);
+  --input: #e8e2d4;
+  --ring: var(--nintendo-blue);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Courier New', monospace;
+    background-image: 
+      radial-gradient(circle at 1px 1px, rgba(139, 115, 85, 0.15) 1px, transparent 0);
+    background-size: 20px 20px;
+  }
+}
+
+/* Nintendo Manual Styling */
+.nintendo-manual {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  position: relative;
+}
+
+.manual-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  border-bottom: 3px solid var(--border-dark);
+  margin-bottom: 20px;
+}
+
+.nav-btn {
+  background: var(--nintendo-red);
+  color: white;
+  border: 2px solid var(--text-dark);
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 3px 3px 0px var(--text-dark);
+  transition: all 0.1s ease;
+}
+
+.nav-btn:hover:not(:disabled) {
+  transform: translate(1px, 1px);
+  box-shadow: 2px 2px 0px var(--text-dark);
+}
+
+.nav-btn:disabled {
+  background: #ccc;
+  color: #888;
+  cursor: not-allowed;
+}
+
+.page-indicator {
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  font-size: 14px;
+  color: var(--text-dark);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.manual-page {
+  flex: 1;
+  background: var(--paper-beige);
+  border: 3px solid var(--border-dark);
+  border-radius: 8px;
+  padding: 30px;
+  margin-bottom: 20px;
+  box-shadow: 5px 5px 0px var(--text-dark);
+  position: relative;
+  overflow: hidden;
+}
+
+.manual-page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(90deg, transparent 24px, rgba(139, 115, 85, 0.1) 25px, rgba(139, 115, 85, 0.1) 26px, transparent 27px),
+    linear-gradient(rgba(139, 115, 85, 0.05) 1px, transparent 1px);
+  background-size: 30px 100%, 100% 20px;
+  pointer-events: none;
+}
+
+.page-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px 0;
+}
+
+.page-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid var(--border-dark);
+  background: var(--paper-beige);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.page-dot.active {
+  background: var(--nintendo-red);
+}
+
+.page-dot:hover {
+  background: var(--nintendo-blue);
+}
+
+/* Page Titles */
+.page-title {
+  font-family: 'Courier New', monospace;
+  font-size: 28px;
+  font-weight: bold;
+  color: var(--nintendo-red);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 24px;
+  text-align: center;
+  text-shadow: 2px 2px 0px var(--text-dark);
+  border-bottom: 3px solid var(--border-dark);
+  padding-bottom: 12px;
+}
+
+/* Cover Page Styles */
+.cover-page {
+  text-align: center;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.nintendo-logo {
+  margin-bottom: 30px;
+}
+
+.nintendo-text {
+  display: block;
+  font-size: 36px;
+  font-weight: bold;
+  color: var(--nintendo-red);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  text-shadow: 3px 3px 0px var(--text-dark);
+}
+
+.entertainment-system {
+  display: block;
+  font-size: 14px;
+  color: var(--text-medium);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-top: 5px;
+}
+
+.game-title h1 {
+  font-size: 32px;
+  color: var(--nintendo-blue);
+  text-shadow: 2px 2px 0px var(--text-dark);
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 16px;
+  color: var(--text-medium);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.pixel-hero {
+  width: 120px;
+  height: 120px;
+  background: linear-gradient(45deg, 
+    var(--nintendo-red) 25%, 
+    var(--nintendo-blue) 25%, 
+    var(--nintendo-blue) 50%, 
+    var(--nintendo-yellow) 50%, 
+    var(--nintendo-yellow) 75%, 
+    var(--nintendo-green) 75%);
+  margin: 30px auto;
+  border: 3px solid var(--text-dark);
+  image-rendering: pixelated;
+  position: relative;
+}
+
+.pixel-hero::after {
+  content: '👾';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 48px;
+}
+
+.info-box {
+  display: flex;
+  justify-content: space-around;
+  background: var(--nintendo-yellow);
+  border: 3px solid var(--text-dark);
+  padding: 16px;
+  margin-top: 30px;
+}
+
+.players, .age-rating {
+  font-weight: bold;
+  color: var(--text-dark);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Contents Page Styles */
+.contents-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.contents-item {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.5);
+  border: 2px solid var(--border-dark);
+  border-radius: 4px;
+}
+
+.item-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-dark);
+  font-weight: bold;
+}
+
+.page-dots-line {
+  flex: 1;
+  height: 2px;
+  background: repeating-linear-gradient(
+    to right,
+    var(--border-dark) 0px,
+    var(--border-dark) 4px,
+    transparent 4px,
+    transparent 8px
+  );
+  margin: 0 16px;
+}
+
+.page-number {
+  font-weight: bold;
+  color: var(--nintendo-red);
+  font-size: 18px;
+}
+
+/* Story Page Styles */
+.story-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 30px;
+  align-items: start;
+}
+
+.story-text p {
+  margin-bottom: 16px;
+  line-height: 1.6;
+  color: var(--text-dark);
+  font-size: 14px;
+}
+
+.pixel-scene {
+  width: 100%;
+  height: 200px;
+  background: linear-gradient(to bottom, #87CEEB 0%, #98FB98 100%);
+  border: 3px solid var(--text-dark);
+  position: relative;
+  image-rendering: pixelated;
+}
+
+.pixel-scene::after {
+  content: '🏰';
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  font-size: 32px;
+}
+
+/* Controls Page Styles */
+.controls-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+.nes-controller {
+  width: 200px;
+  height: 80px;
+  background: #666;
+  border: 3px solid var(--text-dark);
+  border-radius: 8px;
+  position: relative;
+  margin: 0 auto;
+}
+
+.dpad {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+}
+
+.dpad-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 16px;
+  height: 16px;
+  background: #333;
+  border-radius: 2px;
+}
+
+.dpad-up, .dpad-down, .dpad-left, .dpad-right {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: #333;
+  color: white;
+  font-size: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.dpad-up { top: 0; left: 50%; transform: translateX(-50%); }
+.dpad-down { bottom: 0; left: 50%; transform: translateX(-50%); }
+.dpad-left { left: 0; top: 50%; transform: translateY(-50%); }
+.dpad-right { right: 0; top: 50%; transform: translateY(-50%); }
+
+.action-buttons {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 8px;
+}
+
+.button-a, .button-b {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--nintendo-red);
+  color: white;
+  font-weight: bold;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--text-dark);
+}
+
+.start-select {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+}
+
+.select-btn, .start-btn {
+  background: #333;
+  color: white;
+  padding: 2px 6px;
+  font-size: 6px;
+  font-weight: bold;
+  border-radius: 2px;
+}
+
+.controls-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.control-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.5);
+  border: 2px solid var(--border-dark);
+  border-radius: 4px;
+}
+
+.control-input {
+  font-weight: bold;
+  color: var(--nintendo-red);
+}
+
+.control-action {
+  color: var(--text-dark);
+}
+
+/* Gameplay Page Styles */
+.gameplay-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.gameplay-section {
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.5);
+  border: 2px solid var(--border-dark);
+  border-radius: 4px;
+}
+
+.gameplay-section h3 {
+  color: var(--nintendo-blue);
+  font-weight: bold;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.tips-box {
+  background: var(--nintendo-yellow);
+  border: 3px solid var(--text-dark);
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.tips-box h4 {
+  color: var(--text-dark);
+  font-weight: bold;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.tips-box ul {
+  list-style: none;
+  padding: 0;
+}
+
+.tips-box li {
+  padding: 4px 0;
+  color: var(--text-dark);
+}
+
+.tips-box li::before {
+  content: '★ ';
+  color: var(--nintendo-red);
+  font-weight: bold;
+}
+
+/* Characters Page Styles */
+.characters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.character-card {
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.5);
+  border: 2px solid var(--border-dark);
+  border-radius: 4px;
+}
+
+.character-sprite {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(45deg, var(--nintendo-blue), var(--nintendo-green));
+  border: 2px solid var(--text-dark);
+  flex-shrink: 0;
+  position: relative;
+}
+
+.character-sprite::after {
+  content: '🎮';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 24px;
+}
+
+.character-info h3 {
+  color: var(--nintendo-red);
+  font-weight: bold;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+
+.character-type {
+  color: var(--nintendo-blue);
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+/* Items Page Styles */
+.items-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+}
+
+.item-card {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.5);
+  border: 2px solid var(--border-dark);
+  border-radius: 4px;
+}
+
+.item-sprite {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(45deg, var(--nintendo-yellow), var(--nintendo-orange));
+  border: 2px solid var(--text-dark);
+  flex-shrink: 0;
+  position: relative;
+}
+
+.item-sprite::after {
+  content: '💎';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 16px;
+}
+
+.item-info h3 {
+  color: var(--nintendo-purple);
+  font-weight: bold;
+  margin-bottom: 4px;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.item-info p {
+  font-size: 12px;
+  color: var(--text-dark);
+  line-height: 1.4;
+}
+
+/* Maps Page Styles */
+.maps-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 30px;
+}
+
+.map-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 2px;
+  background: var(--text-dark);
+  border: 3px solid var(--text-dark);
+  padding: 2px;
+}
+
+.map-tile {
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgba(0,0,0,0.2);
+}
+
+.map-tile.path {
+  background: #8B4513;
+}
+
+.map-tile.grass {
+  background: #228B22;
+}
+
+.map-tile.water {
+  background: #4169E1;
+}
+
+.map-tile.mountain {
+  background: #696969;
+}
+
+.map-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.map-legend h3 {
+  color: var(--nintendo-blue);
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.legend-color {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--text-dark);
+}
+
+.legend-color.path { background: #8B4513; }
+.legend-color.grass { background: #228B22; }
+.legend-color.water { background: #4169E1; }
+.legend-color.mountain { background: #696969; }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .nintendo-manual {
+    padding: 10px;
+  }
+  
+  .manual-page {
+    padding: 20px;
+  }
+  
+  .story-content,
+  .controls-content,
+  .maps-content {
+    grid-template-columns: 1fr;
+  }
+  
+  .characters-grid,
+  .items-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .page-title {
+    font-size: 20px;
+  }
+  
+  .nintendo-text {
+    font-size: 24px;
+  }
+  
+  .game-title h1 {
+    font-size: 24px;
+  }
+}
